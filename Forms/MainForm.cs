@@ -93,68 +93,61 @@ namespace AGP.Forms
             //Criar BindingSource
             BindingSource bs = new BindingSource();
 
-            //Listar Estados no ListBox
+            // ESTADOS
             db.Estados.Load();
-            bs.DataSource = db.Estados.Local.ToBindingList();
-            lbxEstados.DataSource = bs.DataSource;
-
-            //Mostrar a Designacao do Estado no ListBox
-            lbxEstados.DisplayMember = "Designacao";
-
-            //Listar Categorias no ListBox
-            db.Categorias.Load();
-            bs.DataSource = db.Categorias.Local.ToBindingList();
-            lbxCategorias.DataSource = bs.DataSource;
-
-            //Mostrar a Designacao da Categoria no ListBox
-            lbxCategorias.DisplayMember = "Designacao";
-            lbxCategorias.ValueMember = "Id";
-            
-            //Listar Clientes no ListBox
-            db.Clientes.Load();
-            bs.DataSource = db.Clientes.Local.ToBindingList();
-            lbxClientes.DataSource = bs.DataSource;
-
-            //Mostrar o Nome do Cliente no ListBox
-            lbxClientes.DisplayMember = "NomeCliente";
-            lbxClientes.ValueMember = "Id";
-
-            //Listar Funcionarios no ComboBox
-            db.Funcionarios.Load();
-            bs.DataSource = db.Funcionarios.Local.ToBindingList();
-            cmbFuncionarios.DataSource = bs.DataSource;
-
-            //Mostrar o Nome do Funcionario no ComboBox
-            cmbFuncionarios.DisplayMember = "NomeFuncionario";
-            cmbFuncionarios.ValueMember = "Id";
-
-            //Mostrar o Estado 
-            lbxEstados.DisplayMember = "Designacao";
             lbxEstados.ValueMember = "Id";
+            lbxEstados.DisplayMember = "Designacao";
+            lbxEstados.DataSource = db.Estados.ToList();
 
+            // CATEGORIAS
+            db.Categorias.Load();
+            lbxCategorias.ValueMember = "Id";
+            lbxCategorias.DisplayMember = "Designacao";
+            lbxCategorias.DataSource = db.Categorias.ToList();
+
+            // CLIENTES
+            db.Clientes.Load();
+            lbxClientes.ValueMember = "Id";
+            lbxClientes.DisplayMember = "NomeCliente";
+            lbxClientes.DataSource = db.Clientes.ToList();
+
+            // FUNCIONÁRIOS
+            db.Funcionarios.Load();
+            cmbFuncionarios.ValueMember = "Id";
+            cmbFuncionarios.DisplayMember = "NomeFuncionario";
+            cmbFuncionarios.DataSource = db.Funcionarios.ToList();
+
+            // Após carregar os dados
+            lbxClientes.SelectedValue = -1;
+            lbxCategorias.SelectedValue = -1;
+            lbxEstados.SelectedValue = -1;
+            cmbFuncionarios.SelectedValue = -1;
+
+            // Aplica o filtro automaticamente
+            AplicarFiltroProcessos();
 
             //Finalizar edição e salvar alterações
             bs.EndEdit();
             db.SaveChanges();
-
         }
 
 
         private void btnProcessos1_Click(object sender, EventArgs e)
         {
+            //Criar BindingSource
             BindingSource bs = new BindingSource();
 
+            //Listar Processos no DataGridView
             db.Processos.Load();
             bs.DataSource = db.Processos.Local.ToBindingList();
             dgvMainForm.DataSource = bs.DataSource;
 
+            //Mostrar o DataGridView
             dgvMainForm.Visible = true;
-
-            dgvMainForm.AutoGenerateColumns = true; // se estiver usando autogeração
             dgvMainForm.Columns["Id"].Visible = false;
             dgvMainForm.Columns["Id"].ReadOnly = true;
 
-
+            //Revelar os ListBox e ComboBox de Filtros
             lbxCategorias.Visible = true;
             lbxClientes.Visible = true;
             lbxEstados.Visible = true;
@@ -180,14 +173,11 @@ namespace AGP.Forms
             dgvLinhaDeProcessoGrid.Columns["Id"].Visible = false;
             dgvLinhaDeProcessoGrid.Columns["Id"].ReadOnly = true;
 
-            lbxCategorias.SelectedIndex = -1;
-            lbxClientes.SelectedIndex = -1;
-            lbxEstados.SelectedIndex = -1; 
-            cmbFuncionarios.SelectedIndex = -1;
-
 
             //Finalizar edição e salvar alterações
-            bs.EndEdit(); db.SaveChanges();
+            bs.EndEdit(); 
+            db.SaveChanges();
+
 
         }
         private void carregarDadosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -201,27 +191,21 @@ namespace AGP.Forms
 
         private void AplicarFiltroProcessos()
         {
-            int idCategoria = (int)lbxCategorias.SelectedItem!;
-            int idCliente = (int)lbxClientes.SelectedItem!;
-            int idEstado = (int)lbxEstados.SelectedItem!;
-            int idFuncionario = (int)cmbFuncionarios.SelectedItem!;
+            var query = db.Processos.AsQueryable();
 
-            var query = db.Processos.Where(p => p.FuncionarioId == idFuncionario);
+            if (lbxClientes.SelectedValue is int clienteId)
+                query = query.Where(p => p.ClienteId == clienteId);
 
-            if (lbxCategorias.SelectedItem != null)
-            {
-                query = query.Where(p => p.CategoriaId == idCategoria);
-            }
-            if (lbxClientes.SelectedItem != null)
-            {
-                query = query.Where(p => p.ClienteId == idCliente);
-            }
-            if (lbxEstados.SelectedItem != null)
-            {
-                query = query.Where(p => p.Estado == idEstado);
-            }
+            if (lbxCategorias.SelectedValue is int categoriaId)
+                query = query.Where(p => p.CategoriaId == categoriaId);
+
+            if (lbxEstados.SelectedValue is int estadoId)
+                query = query.Where(p => p.Estado == estadoId);
+
+            if (cmbFuncionarios.SelectedValue is int funcionarioId)
+                query = query.Where(p => p.FuncionarioId == funcionarioId);
+
             dgvMainForm.DataSource = query.ToList();
-
         }
 
         private void lbxClientes_SelectedIndexChanged(object sender, EventArgs e)
@@ -240,16 +224,16 @@ namespace AGP.Forms
             AplicarFiltroProcessos();
         }
 
+
+        private void cmbFuncionarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AplicarFiltroProcessos();
+        }
+
         private void dgvMainForm_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-        private void cmbFuncionarios_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         
     }
 }
