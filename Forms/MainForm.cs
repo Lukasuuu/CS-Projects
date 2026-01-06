@@ -184,11 +184,10 @@ namespace AGP.Forms
             lbxClientes.SelectedIndex = -1;
             lbxEstados.SelectedIndex = -1; 
             cmbFuncionarios.SelectedIndex = -1;
-           
+
 
             //Finalizar edição e salvar alterações
-            bs.EndEdit();
-            db.SaveChanges();
+            bs.EndEdit(); db.SaveChanges();
 
         }
         private void carregarDadosToolStripMenuItem_Click(object sender, EventArgs e)
