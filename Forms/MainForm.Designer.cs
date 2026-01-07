@@ -106,7 +106,6 @@
             carregarDadosToolStripMenuItem.Name = "carregarDadosToolStripMenuItem";
             carregarDadosToolStripMenuItem.Size = new Size(100, 20);
             carregarDadosToolStripMenuItem.Text = "Carregar Dados";
-            carregarDadosToolStripMenuItem.Click += carregarDadosToolStripMenuItem_Click;
             // 
             // dgvMainForm
             // 
