@@ -196,6 +196,8 @@ namespace AGP.Forms
             int idEstado = (int)lbxEstados.SelectedItem!;
             int idFuncionario = (int)cmbFuncionarios.SelectedItem!;
 
+            var query = db.Processos.AsQueryable();
+
             if (cmbFuncionarios.SelectedValue is int funcionarioId)
                 query = query.Where(p => p.FuncionarioId == funcionarioId);
 
