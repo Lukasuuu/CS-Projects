@@ -201,22 +201,22 @@ namespace AGP.Forms
 
         private void AplicarFiltroProcessos()
         {
-            int idCategoria = (int)lbxCategorias.SelectedItem!;
-            int idCliente = (int)lbxClientes.SelectedItem!;
-            int idEstado = (int)lbxEstados.SelectedItem!;
-            int idFuncionario = (int)cmbFuncionarios.SelectedItem!;
+            int idCategoria = (int)lbxCategorias.SelectedValue!;
+            int idCliente = (int)lbxClientes.SelectedValue!;
+            int idEstado = (int)lbxEstados.SelectedValue!;
+            int idFuncionario = (int)cmbFuncionarios.SelectedValue!;
 
             var query = db.Processos.Where(p => p.FuncionarioId == idFuncionario);
 
-            if (lbxCategorias.SelectedItem != null)
+            if (lbxCategorias.SelectedValue != null)
             {
                 query = query.Where(p => p.CategoriaId == idCategoria);
             }
-            if (lbxClientes.SelectedItem != null)
+            if (lbxClientes.SelectedValue != null)
             {
                 query = query.Where(p => p.ClienteId == idCliente);
             }
-            if (lbxEstados.SelectedItem != null)
+            if (lbxEstados.SelectedValue != null)
             {
                 query = query.Where(p => p.Estado == idEstado);
             }

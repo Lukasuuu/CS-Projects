@@ -1,0 +1,120 @@
+INSERT INTO [dbo].[Clientes] ([NomeCliente], [Referencia]) VALUES
+(N'Alfreds Futterkiste', N'12209 - Berlin Alemanha'),
+(N'Ana Trujillo Emparedados y helados', N'05021 - México D.F. México'),
+(N'Antonio Moreno Taquería', N'05023 - México D.F. México'),
+(N'Around the Horn', N'WA1 1DP - London RU'),
+(N'Berglunds snabbköp', N'S-958 22 - Luleå Suécia'),
+(N'Blauer See Delikatessen', N'68306 - Mannheim Alemanha'),
+(N'Blondel père et fils', N'67000 - Strasbourg França'),
+(N'Bólido Comidas preparadas', N'28023 - Madrid Espanha'),
+(N'Bon app''', N'13008 - Marseille França'),
+(N'Bottom-Dollar Markets', N'T2F 8M4 - Tsawassen Canadá'),
+(N'B''s Beverages', N'EC2 5NT - London RU'),
+(N'Cactus Comidas para llevar', N'1010 - Buenos Aires Argentina'),
+(N'Centro comercial Moctezuma', N'05022 - México D.F. Mexico'),
+(N'Chop-suey Chinese', N'3012 - Bern Suíça'),
+(N'Comércio Mineiro', N'05432-043 - São Paulo Brasil'),
+(N'Consolidated Holdings', N'WX1 6LT - London RU'),
+(N'Drachenblut Delikatessen', N'52066 - Aachen Alemanha'),
+(N'Du monde entier', N'44000 - Nantes França'),
+(N'Eastern Connection', N'WX3 6FW - London RU'),
+(N'Ernst Handel', N'8010 - Graz Áustria');
+
+
+INSERT INTO [dbo].[Funcionarios] ([NomeFuncionario], [email], [telemovel], [Data], [Descricao]) VALUES
+(N'João Silva', N'joao.silva@agp.com', '912345678', '2022-01-10', N'Analista de processos sénior'),
+(N'Maria Santos', N'maria.santos@agp.com', '913456789', '2021-11-05', N'Responsável administrativa'),
+(N'Pedro Almeida', N'pedro.almeida@agp.com', '914567890', '2023-02-15', N'Gestor de projetos'),
+(N'Ana Costa', N'ana.costa@agp.com', '915678901', '2020-09-20', N'Coordenadora de equipa'),
+(N'Ricardo Pereira', N'ricardo.pereira@agp.com', '916789012', '2019-06-01', N'Especialista em melhoria contínua'),
+(N'Sofia Martins', N'sofia.martins@agp.com', '917890123', '2022-04-18', N'Analista de dados'),
+(N'Carlos Rodrigues', N'carlos.rodrigues@agp.com', '918901234', '2018-03-12', N'Diretor operacional'),
+(N'Inês Lopes', N'ines.lopes@agp.com', '919012345', '2021-07-25', N'Assistente de gestão'),
+(N'Bruno Fernandes', N'bruno.fernandes@agp.com', '911223344', '2023-01-30', N'Consultor de processos'),
+(N'Patrícia Ribeiro', N'patricia.ribeiro@agp.com', '912334455', '2020-10-08', N'Responsável de qualidade'),
+(N'Miguel Azevedo', N'miguel.azevedo@agp.com', '913445566', '2019-02-14', N'Analista funcional'),
+(N'Carla Nunes', N'carla.nunes@agp.com', '914556677', '2022-06-06', N'Gestora de recursos humanos'),
+(N'Tiago Rocha', N'tiago.rocha@agp.com', '915667788', '2021-05-17', N'Programador de sistemas internos'),
+(N'Daniela Pinho', N'daniela.pinho@agp.com', '916778899', '2023-03-10', N'Analista júnior de processos'),
+(N'André Gomes', N'andre.gomes@agp.com', '917889900', '2018-12-03', N'Consultor sénior'),
+(N'Rita Freitas', N'rita.freitas@agp.com', '918990011', '2020-08-19', N'Gestora de clientes'),
+(N'Fábio Teixeira', N'fabio.teixeira@agp.com', '919101122', '2022-09-01', N'Técnico de suporte operacional'),
+(N'Helena Correia', N'helena.correia@agp.com', '910212233', '2019-04-22', N'Auditora interna'),
+(N'Paulo Matos', N'paulo.matos@agp.com', '911323344', '2021-12-13', N'Supervisor de operações'),
+(N'Cláudia Barros', N'claudia.barros@agp.com', '912434455', '2023-04-05', N'Assistente de projetos');
+
+
+INSERT INTO [dbo].[Categorias] ([Designacao]) VALUES
+(N'Consultoria'),
+(N'Gestão de Projetos'),
+(N'Melhoria Contínua'),
+(N'Qualidade'),
+(N'Recursos Humanos'),
+(N'Tecnologia da Informação'),
+(N'Análise de Dados'),
+(N'Processos Empresariais'),
+(N'Gestão Operacional'),
+(N'Auditoria'),
+(N'Formação'),
+(N'Suporte Técnico'),
+(N'Planeamento Estratégico'),
+(N'Gestão de Clientes'),
+(N'Inovação'),
+(N'Compliance'),
+(N'Gestão Financeira'),
+(N'Logística'),
+(N'Comunicação Interna'),
+(N'Desenvolvimento Organizacional');
+
+
+INSERT INTO [dbo].[Prioridades] ([Designacao]) VALUES
+(N'Não urgente'),
+(N'Crítico'),
+(N'Urgente');
+
+
+INSERT INTO [dbo].[Estados] ([Designacao]) VALUES
+(N'Parado'),
+(N'Ativo'),
+(N'Concluido');
+
+INSERT INTO [dbo].[Processos] ([Titulo], [Descricao], [FuncionarioId], [ClienteId], [DataCriacao], [DataLimite], [TemCoima], [SupervisorId], [CategoriaId], [PrioridadeId], [Estado]) VALUES
+(N'Análise de processo logístico',
+ N'Revisão completa do fluxo logístico do cliente.',
+ 5, 15, '2024-01-10', '2024-02-15', 0, 7, 18, 2, 2),
+
+(N'Implementação de melhorias operacionais',
+ N'Otimização de processos internos e redução de custos.',
+ 9, 4, '2024-01-18', '2024-03-01', 1, 7, 3, 3, 2),
+
+(N'Auditoria interna de qualidade',
+ N'Avaliação dos procedimentos de qualidade em vigor.',
+ 18, 10, '2024-02-01', '2024-02-28', 0, 20, 10, 2, 1),
+
+(N'Desenvolvimento de dashboard analítico',
+ N'Criação de dashboard para análise de dados operacionais.',
+ 6, 11, '2024-02-05', '2024-03-10', 0, 3, 7, 1, 2),
+
+(N'Consultoria estratégica',
+ N'Definição de plano estratégico para crescimento sustentável.',
+ 15, 1, '2024-02-12', '2024-04-01', 0, 7, 1, 2, 2),
+
+(N'Gestão de projeto de transformação digital',
+ N'Coordenação do projeto de transformação digital.',
+ 3, 6, '2024-01-25', '2024-05-30', 1, 7, 2, 3, 2),
+
+(N'Formação em melhoria contínua',
+ N'Ações de formação para equipas operacionais.',
+ 1, 8, '2024-03-01', '2024-03-20', 0, 4, 11, 1, 3),
+
+(N'Auditoria de compliance',
+ N'Verificação de conformidade legal e regulatória.',
+ 20, 17, '2024-02-20', '2024-03-25', 1, 7, 16, 3, 2),
+
+(N'Implementação de sistema interno',
+ N'Desenvolvimento e implementação de sistema interno.',
+ 13, 14, '2024-01-15', '2024-04-15', 0, 7, 6, 2, 3),
+
+(N'Gestão de clientes estratégicos',
+ N'Acompanhamento dedicado a clientes estratégicos.',
+ 16, 2, '2024-02-10', '2024-03-31', 0, 7, 14, 1, 2);
